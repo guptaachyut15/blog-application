@@ -4,15 +4,19 @@ exports.signUpPageHandler = (req, res) => {
   return res.render("signup");
 };
 
-exports.signUpHandler = (req, res) => {
-  const { fullName, email, password } = req.body;
-  //save the user
-  User.create({ fullName, email, password });
-  return res.redirect("/signin");
-};
-
 exports.signInPageHandler = (req, res) => {
   return res.render("signin");
+};
+
+exports.signOutPageHandler = async (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/");
+};
+
+exports.signUpHandler = (req, res) => {
+  const { fullName, email, password } = req.body;
+  User.create({ fullName, email, password });
+  return res.redirect("/user/signin");
 };
 
 exports.signInHandler = async (req, res) => {
@@ -24,9 +28,4 @@ exports.signInHandler = async (req, res) => {
     console.log(err.message);
     res.render("signin", { error: err.message });
   }
-};
-
-exports.signOutPageHandler = async (req, res) => {
-  res.clearCookie("token");
-  res.redirect("/");
 };
