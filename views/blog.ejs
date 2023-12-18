@@ -50,6 +50,49 @@
         <pre><%= blog.body %></pre>
       </div>
     </div>
-    <% } %> <%- include('./partials/scripts') %>
+    <div class="container mt-4">
+      <div
+        style="display: inline-block; vertical-align: middle; margin-top: 0px"
+      >
+        <img src="<%= blog.createdBy.profileImageurl %>" width="40px" />
+      </div>
+      <div style="display: inline-block; vertical-align: middle">
+        <%= blog.createdBy.fullName %>
+      </div>
+    </div>
+    <% if (locals.user) { %>
+    <div class="container mt-4">
+      <form action="/blog/comment/<%= blog._id %>" method="post">
+        <div class="col-md-6">
+          <label for="comment" class="form-label">Add comment</label>
+          <input
+            type="text"
+            class="form-control"
+            name="content"
+            required="true"
+          />
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary mt-2">comment</button>
+        </div>
+      </form>
+    </div>
+    <% } %> <% if (locals.comments) { %>
+    <div class="container mt-4">
+      Comments(<%= comments.length %>) <% comments.forEach(comment => { %>
+      <div class="container mt-3">
+        <div class="container">
+          <img
+            src="<%= comment.createdBy.profileImageurl %>"
+            width="20px"
+            style="display: inline-flex; margin-top: 0px"
+          />
+          <%= comment.createdBy.fullName %>
+        </div class="container">
+        <%= comment.content %>
+        <% }) %>
+      </div>
+    </div>
+    <% } %> <% } %> <%- include('./partials/scripts') %>
   </body>
 </html>
