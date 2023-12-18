@@ -4,6 +4,7 @@ const {
   addBlogPageHandler,
   addBlogHandler,
   uniqueblogPageHandler,
+  postCommentHandler,
 } = require("../controllers/blogController");
 
 const router = express.Router();
@@ -22,5 +23,6 @@ router.get("/add", addBlogPageHandler);
 router.get("/:id", uniqueblogPageHandler);
 
 router.post("/add", upload.single("coverImage"), addBlogHandler);
+router.post("/comment/:blogId", postCommentHandler);
 
 module.exports = router;

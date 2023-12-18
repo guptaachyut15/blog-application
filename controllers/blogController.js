@@ -1,4 +1,5 @@
 const Blog = require("../models/blogs");
+const Comment = require("../models/comments");
 
 exports.addBlogPageHandler = (req, res) => {
   if (!req.user) {
@@ -8,8 +9,10 @@ exports.addBlogPageHandler = (req, res) => {
 };
 
 exports.uniqueblogPageHandler = async (req, res) => {
-  const blog = await Blog.findById(req.params.id);
-  return res.render("blog", { user: req.user, blog });
+  const blogId = req.params.id;
+  const blog = await Blog.findById(blogId).populate("createdBy");
+  const comments = await Comment.find({ blogId }).populate("createdBy");
+  return res.render("blog", { user: req.user, blog, comments });
 };
 
 exports.addBlogHandler = async (req, res) => {
@@ -24,4 +27,11 @@ exports.addBlogHandler = async (req, res) => {
     message: `Blog uploaded successfully`,
     blog: blog,
   });
+};
+
+exports.postCommentHandler = async (req, res) => {
+  const blogId = req.params.blogId;
+  const { content } = req.body;
+  await Comment.create({ content, blogId, createdBy: req.user._id });
+  res.redirect(`/blog/${blogId}`);
 };
