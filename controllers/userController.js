@@ -13,10 +13,14 @@ exports.signOutPageHandler = async (req, res) => {
   res.redirect("/");
 };
 
-exports.signUpHandler = (req, res) => {
+exports.signUpHandler = async (req, res) => {
   const { fullName, email, password } = req.body;
-  User.create({ fullName, email, password });
-  return res.redirect("/user/signin");
+  try {
+    await User.create({ fullName, email, password });
+    return res.redirect("/user/signin");
+  } catch (err) {
+    res.render("signup", { error: "User already exist" });
+  }
 };
 
 exports.signInHandler = async (req, res) => {

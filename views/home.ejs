@@ -7,18 +7,27 @@
 
   <body>
     <%- include('./partials/navbar') %> <% if (locals.blogs) { %>
-    <div class="mt-3">
-      <% locals.blogs.forEach(blog => { %>
-      <div class="card" style="width: 18rem">
-        <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title"><%= blog.title %></h5>
-          <a href="/blog/<%= blog._id %>" class="btn btn-primary"
-            >Go to the blog</a
-          >
+    <div class="mt-3 container">
+      <div class="row">
+        <% locals.blogs.forEach(blog => { %>
+        <div class="col-md-3 mb-4">
+          <div class="card h-100">
+            <img
+              src="<%= blog.coverImageURL %>"
+              class="card-img-top img-fluid"
+              alt="<%= blog.title %>"
+              style="height: 200px; object-fit: cover"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <a href="/blog/<%= blog._id %>" class="btn btn-primary"
+                >Go to the blog</a
+              >
+            </div>
+          </div>
         </div>
+        <% }) %>
       </div>
-      <% }) %>
     </div>
     <% } %> <%- include('./partials/scripts') %>
   </body>
