@@ -17,10 +17,11 @@ exports.uniqueblogPageHandler = async (req, res) => {
 
 exports.addBlogHandler = async (req, res) => {
   const { title, blogText } = req.body;
+  const encoded = req.file.buffer.toString("base64");
   const blog = await Blog.create({
     title: title,
     body: blogText,
-    coverImageURL: `/uploads/${req.file?.filename}`,
+    coverImageURL: encoded,
     createdBy: req.user._id,
   });
   return res.render("blog", {
