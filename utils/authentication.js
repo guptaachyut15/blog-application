@@ -7,7 +7,7 @@ exports.createTokenfromUser = (user) => {
     email: user.email,
     role: user.role,
     fullName: user.fullName,
-    profileImageUrl: user.profileImageUrl,
+    profileImageUrl: user.profileImageurl,
   };
   const token = jwt.sign(payload, JWTSECRET);
   return token;

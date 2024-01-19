@@ -13,6 +13,10 @@ exports.signOutPageHandler = async (req, res) => {
   res.redirect("/");
 };
 
+exports.profilePageHandler = async (req, res) => {
+  res.render("profile", { user: req.user });
+};
+
 exports.signUpHandler = async (req, res) => {
   const { fullName, email, password } = req.body;
   try {

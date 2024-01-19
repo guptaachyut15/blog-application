@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/head') %>
+    <title>Profile</title>
+  </head>
+  <style>
+    /* .profile-page{
+        display: flex;
+        justify-content: flex-start;
+    } */
+    .profile-image{
+        height: 100px;
+    }
+  </style>
+  <body>
+    <%- include('partials/navbar') %>
+    <div  class="profile-page">
+    <div>
+    <img src="<%= user.profileImageUrl %>" class="profile-image"></img>
+    <form action="/user/profile_image" method="put">
+    <input type="file" onchange="">Change profile</input>
+    <button type="submit"></button>
+    </form>
+    </div>
+    <div>
+    <h2><%= user.fullName %></h2>
+    <h3>Role:<%= user.role %></h3>
+    <h3>Email:<%= user.email %></h3>
+    </div>
+    </div>
+    <%- include('partials/scripts') %>
+    <script>
+        const uploadImage = ()=>{
+
+        }
+    </script>
+  </body>
+</html>
